@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="tr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Yer Hizmetleri Risk Analizi Aracı</title>
+<link rel="stylesheet" href="style.css">
+</head><body><main>
+<header>
+<h1>Yer Hizmetleri Risk Analizi Aracı</h1>
+<p class="mut">IE443 · Grup 2 · 5×5 olasılık × şiddet. Kayıtlar yalnızca bu tarayıcıda saklanır. Hazır satırlar varsayımsal örnektir; gerçek analizle değiştirin.</p>
+</header>
+<div class="tabs"><button class="btn on" data-tab="r">Risk analizi</button><button class="btn" data-tab="b">Tehlike bildirimi</button></div>
+
+<section id="tab-r" style="display:flex;flex-direction:column;gap:16px">
+<div class="stats" id="stats"></div>
+<div class="card"><h2>Yeni risk kaydı</h2>
+<div class="grid">
+<label>Faaliyet<select id="act"></select></label>
+<label>Tehlike / iş adımı<input id="hz" placeholder="Örn. araç–yaya çarpışması"></label>
+<label>Olası sonuç<input id="cs" placeholder="Örn. yaralanma, hasar"></label>
+<label>İnsan faktörü<select id="hf"></select></label>
+<label>Mevcut kontrol<input id="ct"></label>
+<label>Olasılık<select id="lik"></select></label>
+<label>Şiddet<select id="sev"></select></label>
+<label>İlave önlem<input id="ex"></label>
+<label>Sorumlu<select id="own"></select></label>
+</div>
+<div class="bar" style="margin-top:12px"><button class="btn" id="add">Kaydı ekle</button><span id="pv"></span></div>
+</div>
+<div class="card"><h2>Colab (YOLO) sonucunu içe aktar</h2><p class="mut">Colab’deki Gradio ekranında oluşan JSON’u aşağıya yapıştırın veya bir .json dosyası seçin; her tespit bir risk kaydı olarak eklenir. Olasılık ve şiddet değerlerini ekip olarak gözden geçirin.</p><input type="file" id="impf" accept=".json,application/json" style="margin-bottom:8px"><textarea id="imp" placeholder="[ { &quot;h&quot;: &quot;...&quot;, &quot;l&quot;: 4, &quot;v&quot;: 5 } ]"></textarea><div class="bar" style="margin-top:8px"><button class="btn" id="impb">İçe aktar</button><span id="impm" class="mut"></span></div></div>
+<div class="two">
+<div class="card"><h2>Risk matrisi (kayıt sayısı)</h2><div class="mx" id="mx"></div><p class="mut">Satır: şiddet, sütun: olasılık. Eşikler: 1–4 düşük, 5–9 orta, 10–16 yüksek, 17–25 çok yüksek.</p></div>
+<div class="card"><h2>Risk skorları (yüksekten düşüğe)</h2><div id="bars"></div></div>
+</div>
+<div class="card"><div class="bar" style="justify-content:space-between"><h2>Risk kayıtları</h2><span class="bar"><button class="btn sec" id="csv">CSV kopyala</button><button class="btn sec" id="clr">Tümünü temizle</button></span></div>
+<textarea id="csvt" hidden readonly></textarea>
+<div class="w"><table><thead><tr><th>Faaliyet</th><th>Tehlike</th><th>İnsan faktörü</th><th>O</th><th>Ş</th><th>Skor</th><th>Mevcut kontrol</th><th>İlave önlem</th><th>Sorumlu</th><th></th></tr></thead><tbody id="tb"></tbody></table></div></div>
+</section>
+
+<section id="tab-b" hidden style="display:flex;flex-direction:column;gap:16px">
+<div class="card"><h2>Tehlike / ramak kala bildirimi</h2>
+<div class="grid">
+<label>Tarih<input type="date" id="rd"></label>
+<label>Tür<select id="rt"><option>Tehlike</option><option>Ramak kala</option><option>Olay</option></select></label>
+<label>Faaliyet<select id="ract"></select></label>
+<label>Açıklama<input id="rdsc" placeholder="Ne gözlemlendi?"></label>
+</div>
+<div class="bar" style="margin-top:12px"><button class="btn" id="radd">Bildirimi gönder</button></div></div>
+<div class="card"><h2>Bildirimler</h2><div class="w"><table><thead><tr><th>Tarih</th><th>Tür</th><th>Faaliyet</th><th>Açıklama</th><th></th></tr></thead><tbody id="rb"></tbody></table></div></div>
+</section>
+</main>
+<script src="app.js"></script>
+</body></html>
